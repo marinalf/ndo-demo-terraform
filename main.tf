@@ -123,6 +123,10 @@ resource "mso_schema_site_vrf_region" "azure_region" {
   region_name        = var.azure_region_name
   vpn_gateway        = false
   hub_network_enable = true #This enables VNet Peering to Infra/Hub VNet
+  hub_network = {
+    name        = "default"
+    tenant_name = "infra"
+  }
   cidr {
     cidr_ip = var.azure_cidr_ip
     primary = true
