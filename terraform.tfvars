@@ -26,7 +26,7 @@ zone2   = "eu-west-2b"
 aws_subnet_web = "10.1.3.0/24"
 zone3   = "eu-west-2a"
 
-tgw_name = "hub1" # this is the TGW name configured during initial cAPIC setup
+tgw_name = "TGW" # this is the TGW name configured during initial cAPIC setup
 
 # User VNet in Azure
 
