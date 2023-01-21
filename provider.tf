@@ -4,12 +4,12 @@ terraform {
   required_providers {
     mso = {
       source  = "CiscoDevNet/mso"
-      version = ">= 0.5.0"
+      version = ">= 0.7.0"
     }
   }
 }
 
-# MSO Provider Config
+# Provider Config
 
 provider "mso" {
   username = var.ndo.username
