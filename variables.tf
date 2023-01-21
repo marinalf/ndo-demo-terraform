@@ -1,4 +1,4 @@
-# All credentials and sensitive information are declared in the override.tf file.
+# All credentials and sensitive information are declared in a override.tf or terraform.tfvars file.
 
 # NDO Credentials
 

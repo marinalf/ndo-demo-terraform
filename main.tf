@@ -46,7 +46,7 @@ resource "mso_schema_site" "aws_site" {
 
 ### Template Level - Networking
 
-# Create VRF to be stretched to  Azure
+# Create VRF to be stretched between AWS & Azure
 
 resource "mso_schema_template_vrf" "vrf1" {
   schema_id    = mso_schema.schema1.id
@@ -94,7 +94,7 @@ resource "mso_schema_site_vrf_region" "aws_region" {
   vrf_name           = mso_schema_template_vrf.vrf1.name
   region_name        = var.aws_region_name
   vpn_gateway        = false
-  hub_network_enable = true #This enables TGW attachment to Infra TGW
+  hub_network_enable = true # This enables attachment to Infra TGW
   hub_network = {
     name        = var.tgw_name
     tenant_name = "infra"
