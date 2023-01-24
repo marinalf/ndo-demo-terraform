@@ -42,4 +42,4 @@ terraform apply
 
 **Remarks**
 
-This code demonstrates the use of standard terraform modules with a single schema definition and one template stretched across both clouds. The intent is show a simple scenario to build upon for multiple schema/templates which can be enhanced with more advanced modules on a per use case basis. 
+This code demonstrates the use of standard terraform modules with a single schema definition and one template stretched across both clouds. The intent is to show a simple scenario to build upon for multiple schema/templates which can be enhanced with more advanced modules on a per use case basis. 
