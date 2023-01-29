@@ -38,12 +38,12 @@ variable "azure" {
 
 variable "aws_site_name" {
   type    = string
-  default = "cnc-aws"
+  default = "aws"
 }
 
 variable "azure_site_name" {
   type    = string
-  default = "cnc-azure"
+  default = "azure"
 }
 
 ## Template Level
