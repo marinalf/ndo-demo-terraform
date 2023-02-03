@@ -34,14 +34,16 @@ resource "mso_schema" "schema1" {
 
 resource "mso_schema_site" "azure_site" {
   schema_id     = mso_schema.schema1.id
-  template_name = var.template_name
+  template_name = tolist(mso_schema.schema1.template)[0].name
   site_id       = data.mso_site.azure_site.id
+  undeploy_on_destroy = true
 }
 
 resource "mso_schema_site" "aws_site" {
   schema_id     = mso_schema.schema1.id
-  template_name = var.template_name
+  template_name = tolist(mso_schema.schema1.template)[0].name
   site_id       = data.mso_site.aws_site.id
+  undeploy_on_destroy = true
 }
 
 ### Template Level - Networking
@@ -50,7 +52,7 @@ resource "mso_schema_site" "aws_site" {
 
 resource "mso_schema_template_vrf" "vrf1" {
   schema_id    = mso_schema.schema1.id
-  template     = var.template_name
+  template     = tolist(mso_schema.schema1.template)[0].name
   name         = var.vrf_name
   display_name = var.vrf_name
 }
@@ -130,16 +132,17 @@ resource "mso_schema_site_vrf_region" "aws_region" {
 
 resource "mso_schema_template_anp" "ap" {
   schema_id    = mso_schema.schema1.id
-  template     = var.template_name
+  template     = tolist(mso_schema.schema1.template)[0].name
   name         = var.ap_name
   display_name = var.ap_name
 }
+
 
 # Create Web EPG
 
 resource "mso_schema_template_anp_epg" "cloud_epg" {
   schema_id     = mso_schema.schema1.id
-  template_name = var.template_name
+  template_name = tolist(mso_schema.schema1.template)[0].name
   anp_name      = mso_schema_template_anp.ap.name
   name          = var.epg_name
   display_name  = var.epg_name
@@ -150,7 +153,7 @@ resource "mso_schema_template_anp_epg" "cloud_epg" {
 
 resource "mso_schema_template_external_epg" "externalepg" {
   schema_id         = mso_schema.schema1.id
-  template_name     = var.template_name
+  template_name     = tolist(mso_schema.schema1.template)[0].name
   external_epg_name = var.ext_epg
   external_epg_type = "cloud"
   display_name      = var.ext_epg
@@ -166,7 +169,7 @@ resource "mso_schema_template_external_epg" "externalepg" {
 
 resource "mso_schema_template_filter_entry" "filter_entry_ext_epg" {
   schema_id          = mso_schema.schema1.id
-  template_name      = var.template_name
+  template_name      = tolist(mso_schema.schema1.template)[0].name
   name               = var.filter_name
   display_name       = var.filter_name
   entry_name         = "Any"
@@ -182,7 +185,7 @@ resource "mso_schema_template_filter_entry" "filter_entry_ext_epg" {
 
 resource "mso_schema_template_contract" "contract_ext_epg" {
   schema_id     = mso_schema.schema1.id
-  template_name = var.template_name
+  template_name = tolist(mso_schema.schema1.template)[0].name
   contract_name = var.contract_name
   display_name  = var.contract_name
   scope         = "context"
@@ -196,7 +199,7 @@ resource "mso_schema_template_contract" "contract_ext_epg" {
 
 resource "mso_schema_template_anp_epg_contract" "epg_provider" {
   schema_id         = mso_schema.schema1.id
-  template_name     = var.template_name
+  template_name     = tolist(mso_schema.schema1.template)[0].name
   anp_name          = mso_schema_template_anp.ap.name
   epg_name          = mso_schema_template_anp_epg.cloud_epg.name
   contract_name     = mso_schema_template_contract.contract_ext_epg.contract_name
@@ -207,7 +210,7 @@ resource "mso_schema_template_anp_epg_contract" "epg_provider" {
 
 resource "mso_schema_template_external_epg_contract" "ext_epg_consumer" {
   schema_id         = mso_schema.schema1.id
-  template_name     = var.template_name
+  template_name     = tolist(mso_schema.schema1.template)[0].name
   external_epg_name = mso_schema_template_external_epg.externalepg.external_epg_name
   contract_name     = mso_schema_template_contract.contract_ext_epg.contract_name
   relationship_type = "consumer"

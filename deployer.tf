@@ -1,8 +1,8 @@
 # Deploy Template
-/*
-resource "mso_schema_template_deploy" "template_deployer" {
+
+resource "mso_schema_template_deploy_ndo" "template_deployer" {
   schema_id     = mso_schema.schema1.id
-  template_name = var.template_name
+  template_name = tolist(mso_schema.schema1.template)[0].name
   depends_on = [
     mso_tenant.tenant,
     mso_schema.schema1,
@@ -21,4 +21,3 @@ resource "mso_schema_template_deploy" "template_deployer" {
     mso_schema_template_external_epg_contract.ext_epg_consumer
   ]
 }
-*/
